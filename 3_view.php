@@ -51,18 +51,24 @@
 	$(document).ready(function() {
 		$("select[name='city']").on("change",function(){
 			$("#result").html("<tr><td colspan='3'>Loading....</td></tr>");
-			
+
 			$("#city").text($(this).val());
 			$.get('3.php?city='+$(this).val(), function(data) {
-				var output ="";
-				$.each(data.data, function(index, val) {
-					 output += "<tr>"+
-					 	"<td>"+val.date+"</td>"+
-					 	"<td>"+val.temperature+"</td>"+
-					 	"<td>"+val.variance+"</td></tr>";
-				});
 
-				$("#result").html(output);
+				if(data.status){
+					var output ="";
+					$.each(data.data, function(index, val) {
+						 output += "<tr>"+
+						 	"<td>"+val.date+"</td>"+
+						 	"<td>"+val.temperature+"</td>"+
+						 	"<td>"+val.variance+"</td></tr>";
+					});
+
+					$("#result").html(output);
+				}else{
+					alert("Opps something went wrong (Error Code : "+data.error_code+", Message : "+data.message+")");
+				}
+				
 			});
 		});
 	});	

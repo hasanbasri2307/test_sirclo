@@ -71,6 +71,7 @@ class ClimateApp {
 				'country' => $restApi['city']['country']
 			];
 		$this->results['data'] = [];
+		$this->results['status'] = true;
 
 		if(count($restApi['list']) > 0 ){
 			foreach($restApi['list'] as $value){
